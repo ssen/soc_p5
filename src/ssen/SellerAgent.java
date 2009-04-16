@@ -20,7 +20,7 @@ public class SellerAgent extends Agent{
 		Object[] args = getArguments();
 		if (args != null && args.length > 0) {
 			argSeller = (String) args[0];
-			addBehaviour(new SellerBehaviour());
+			addBehaviour(new SellerBehavior());
 			
 		}else {
 			System.out.println("No Argument specified");

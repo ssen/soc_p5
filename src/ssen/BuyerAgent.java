@@ -21,7 +21,7 @@ public class BuyerAgent extends Agent{
 			buyer_arg0 = (String) args[0];
 			buyer_arg1 = (String) args[1];
 			buyer_arg2 = (String) args[2];
-			addBehaviour(new BuyerBehaviour(buyer_arg2));
+			addBehaviour(new BuyerBehaviour(buyer_arg1,buyer_arg2));
 			
 		}else {
 			System.out.println("No Argument specified");

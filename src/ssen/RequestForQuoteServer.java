@@ -1,5 +1,6 @@
 package ssen;
 
+import java.io.IOException;
 import java.util.Random;
 
 import jade.core.behaviours.Behaviour;
@@ -15,27 +16,39 @@ public class RequestForQuoteServer extends CyclicBehaviour{
 		ACLMessage msg = myAgent.receive();
 		if (msg != null) {
 			System.out.println("EUREKA");
-			try {
-				P5Message p5Msg =  (P5Message) msg.getContentObject();
-				P5Message p5MsgReply = null;
+			
+				P5Message p5Msg = new P5Message();
+				try {
+					p5Msg = (P5Message) msg.getContentObject();
+				} catch (UnreadableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				PrintToConsole(p5Msg);
 				//****TODO*****
 				//have to check whether message can be accepted or not
 				if(p5Msg.getName().equals("requestForQuote")){
+					P5Message p5MsgReply = new P5Message();
 					String price= GenerateRandomNumber();
 					ACLMessage reply = msg.createReply();
-					reply.setPerformative(ACLMessage.INFORM);
-					p5MsgReply.setName("acceptQuote");
-					p5MsgReply.setParam("price",price);
 					
+					reply.setPerformative(ACLMessage.INFORM);
+
+					p5MsgReply.setName("something");
+					p5MsgReply.setParam("price",price);
+					try {
+						reply.setContentObject(p5MsgReply);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					myAgent.send(reply);//sending quote
 					
 				}
 				
 				
-			} catch (UnreadableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 			
 			myAgent.doDelete();
 		}else{
@@ -45,7 +58,7 @@ public class RequestForQuoteServer extends CyclicBehaviour{
 			
 	}
 
-	private static String GenerateRandomNumber() {
+	private String GenerateRandomNumber() {
 		// TODO Auto-generated method stub
 		Random r = new Random();
 		int t = 0;

@@ -9,7 +9,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class RequestForQuote extends OneShotBehaviour{
+public class RequestForQuote extends CyclicBehaviour{
 	private String buyer_arg2;
 	public RequestForQuote(String buyer_arg2) {
 		// TODO Auto-generated constructor stub
@@ -35,6 +35,19 @@ public class RequestForQuote extends OneShotBehaviour{
 			e.printStackTrace();
 		}
 		myAgent.send(msg);
+		// The qoute is got back from the seller 
+		ACLMessage quotemessage = myAgent.receive();
+		if (quotemessage  != null) {
+			System.out.println("Yes got themessage");
+		}
+		else
+		{
+			block();
+		}
+		
+		
+		
+		
 	}
 }
 
