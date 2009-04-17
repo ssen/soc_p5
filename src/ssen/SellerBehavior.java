@@ -33,6 +33,7 @@ public class SellerBehavior extends Behaviour{
 				//if YES
 				String price= GenerateRandomNumber();
 				ACLMessage aclmsg = RequestFotQuote.createReply();
+				
 				myAgent.send(aclmsg);
 				
 				//SendMessage("quote", RequestFotQuote, ACLMessage.INFORM, p5RequestFotQuote.getParam("itemID"), price);
